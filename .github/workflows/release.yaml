@@ -1,5 +1,9 @@
 name: Release
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
 permissions:
   contents: read
 
@@ -8,7 +12,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
-      # attestations: write
+      attestations: write
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -23,7 +27,7 @@ jobs:
     - name: Set up Apache Maven Central
       uses: actions/setup-java@99b8673ff64fbf99d8d325f52d9a5bdedb8483e9 # v4.2.1
       with: # Running setup-java again overwrites the settings.xml
-        distribution: 'temurin'
+        distribution: temurin
         java-version: '11'
         server-id: maven-central # Value of the distributionManagement/repository/id field of the pom.xml
         server-username: MAVEN_USERNAME # env variable for username in deploy
@@ -32,14 +36,14 @@ jobs:
         gpg-passphrase: MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
 
     - name: Publish to Apache Maven Central
-      run: mvn deploy
+      run: ./mvnw source:jar deploy
       env:
         MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
         MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
         MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
 
     # Build provenance
-    # - name: Attest Build Provenance
-    #   uses: actions/attest-build-provenance@897ed5eab6ed058a474202017ada7f40bfa52940 # v1.0.0
-    #   with:
-    #     subject-path: target/*.jar        
+    - name: Attest Build Provenance
+      uses: actions/attest-build-provenance@897ed5eab6ed058a474202017ada7f40bfa52940 # v1.0.0
+      with:
+        subject-path: target/*.jar

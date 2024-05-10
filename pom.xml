@@ -6,7 +6,7 @@
 
   <groupId>io.github.behnazh-w.demo</groupId>
   <artifactId>maven-test-provenance</artifactId>
-  <version>1.0</version>
+  <version>1.1.0</version>
 
   <name>example-maven-provenance</name>
   <url>https://github.com/behnazh-w/example-maven-provenance</url>
