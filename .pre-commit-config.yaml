@@ -14,7 +14,7 @@ repos:
 
 # Commitizen enforces semantic and conventional commit messages.
 - repo: https://github.com/commitizen-tools/commitizen
-  rev: v3.25.0
+  rev: v3.27.0
   hooks:
   - id: commitizen
     name: Check conventional commit message
@@ -22,14 +22,14 @@ repos:
 
 # Check GitHub Actions workflow files.
 - repo: https://github.com/Mateusz-Grzelinski/actionlint-py
-  rev: v1.6.25
+  rev: v1.7.1.15
   hooks:
   - id: actionlint
 
 # Enable a whole bunch of useful helper hooks, too.
 # See https://pre-commit.com/hooks.html for more hooks.
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.4.0
+  rev: v4.6.0
   hooks:
   - id: check-case-conflict
   - id: check-merge-conflict
@@ -46,7 +46,7 @@ repos:
 
 # Check and prettify the configuration files.
 - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
-  rev: v2.10.0
+  rev: v2.13.0
   hooks:
   - id: pretty-format-yaml
     args: [--autofix]
